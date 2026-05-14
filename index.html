@@ -21,6 +21,19 @@
 </head>
 
 <body>
+  <!-- CLI Preloader -->
+  <div id="cli-preloader" class="cli-preloader">
+    <div class="cli-window">
+      <div class="cli-header">
+        <div class="cli-buttons">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="cli-title">liyan@universe ~ zsh</div>
+      </div>
+      <div class="cli-body" id="cli-body"></div>
+    </div>
+  </div>
+
   <div id="particle-container"></div>
   <script type="module" src="./particle-effect.js"></script>
   <div class="cursor-glow" aria-hidden="true"></div>
@@ -29,7 +42,9 @@
   <main class="profile-shell">
     <aside class="profile-sidebar">
       <a class="brand magnetic" href="#about" aria-label="AI 产品经理作品集">
-        <img class="brand-mark" src="./avatar.png" alt="Liyan Avatar" />
+        <div class="brand-mark">
+          <img src="./avatar.png" alt="Liyan Avatar" />
+        </div>
         <span>liyan</span>
       </a>
 

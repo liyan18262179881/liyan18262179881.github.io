@@ -115,7 +115,14 @@ h1, h2, h3, p { margin-top: 0; }
   color: var(--ink);
   font-size: 15px;
   box-shadow: 0 0 28px rgba(215, 255, 104, 0.3);
+  overflow: hidden;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transform: scale(1.4);
 }
 
 .module-nav { display: grid; gap: 10px; }
@@ -626,6 +633,106 @@ p {
   .metric-row span { font-size: 13px; padding: 6px 10px; }
   
   .contact-panel a { width: 100%; }
+}
+
+/* CLI Preloader */
+.cli-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.cli-window {
+  width: 100%;
+  max-width: 720px;
+  background: #11131a;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+.cli-header {
+  height: 44px;
+  background: #1a1d24;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cli-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.cli-buttons span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+}
+
+.cli-buttons span:nth-child(2) { background: #ffbd2e; }
+.cli-buttons span:nth-child(3) { background: #27c93f; }
+
+.cli-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.cli-body {
+  padding: 32px;
+  min-height: 400px;
+  color: #c9d1d9;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.cli-line { 
+  margin-bottom: 12px; 
+  display: flex;
+  opacity: 0; 
+  transform: translateY(4px); 
+  animation: cli-fade-in 0.2s forwards; 
+}
+
+.cli-prompt { color: #27c93f; margin-right: 12px; font-weight: bold; }
+.cli-cmd { color: #e6edf3; }
+.cli-out-arrow { color: #58a6ff; margin-right: 12px; }
+.cli-output { color: #8b949e; }
+.cli-output.highlight { color: #58a6ff; }
+.cli-output.yellow { color: #e3b341; }
+
+.cli-progress-wrapper {
+  margin-top: 24px;
+  color: #27c93f;
+}
+
+.cli-progress-bar {
+  letter-spacing: 2px;
+}
+
+@keyframes cli-fade-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 680px) {
+  .cli-window { height: 100%; border-radius: 0; }
+  .cli-preloader { padding: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

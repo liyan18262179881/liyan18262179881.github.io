@@ -10,6 +10,84 @@ window.addEventListener("load", () => {
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const cliBody = document.getElementById('cli-body');
+  const preloader = document.getElementById('cli-preloader');
+  if (!cliBody || !preloader) return;
+
+  document.body.style.overflow = 'hidden';
+
+  const steps = [
+    { type: 'cmd', text: 'whoami', delay: 150 },
+    { type: 'out', text: 'liyan', class: 'highlight', delay: 80 },
+    { type: 'cmd', text: 'cat about.md', delay: 150 },
+    { type: 'out', text: 'AI Product Manager', class: 'highlight', delay: 80 },
+    { type: 'out', text: '0→1 / Agent / RAG / 降本增效', class: 'highlight', delay: 50 },
+    { type: 'cmd', text: 'echo "1 person + AI = 1 team"', delay: 150 },
+    { type: 'out', text: '1 person + AI = 1 team', class: 'yellow', delay: 80 },
+    { type: 'cmd', text: 'open portfolio.app', delay: 150 },
+    { type: 'out', text: 'launching ...', delay: 80 },
+    { type: 'progress', delay: 80 }
+  ];
+
+  let stepIndex = 0;
+
+  function runNextStep() {
+    if (stepIndex >= steps.length) return;
+    const step = steps[stepIndex];
+    stepIndex++;
+
+    setTimeout(() => {
+      if (step.type === 'cmd') {
+        const line = document.createElement('div');
+        line.className = 'cli-line';
+        line.innerHTML = `<span class="cli-prompt">$</span><span class="cli-cmd"></span>`;
+        cliBody.appendChild(line);
+        const cmdSpan = line.querySelector('.cli-cmd');
+        let charIndex = 0;
+        const typeInterval = setInterval(() => {
+          cmdSpan.textContent += step.text[charIndex];
+          charIndex++;
+          if (charIndex >= step.text.length) {
+            clearInterval(typeInterval);
+            runNextStep();
+          }
+        }, 12); // Medium typing speed
+      } else if (step.type === 'out') {
+        const line = document.createElement('div');
+        line.className = 'cli-line';
+        line.innerHTML = `<span class="cli-out-arrow">></span><span class="cli-output ${step.class || ''}">${step.text}</span>`;
+        cliBody.appendChild(line);
+        runNextStep();
+      } else if (step.type === 'progress') {
+        const line = document.createElement('div');
+        line.className = 'cli-line cli-progress-wrapper';
+        cliBody.appendChild(line);
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += Math.floor(Math.random() * 15) + 10; // Medium progress jumps
+          if (progress > 100) progress = 100;
+          const filled = Math.floor(progress / 5);
+          const empty = 20 - filled;
+          line.innerHTML = `[<span style="color:#27c93f">${'█'.repeat(filled)}</span><span style="color:#30363d">${'▒'.repeat(empty)}</span>] ${progress}%`;
+          if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              preloader.style.opacity = '0';
+              preloader.style.visibility = 'hidden';
+              document.body.style.overflow = '';
+              setTimeout(() => preloader.remove(), 500);
+            }, 300); // Disappear delay
+          }
+        }, 50); // Medium interval
+      }
+    }, step.delay);
+  }
+
+  runNextStep();
+});
+
 const projects = [
   {
     tag: "Agent Product",
