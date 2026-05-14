@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Product Manager Portfolio</title>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/loaders/GLTFLoader": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js"
+      }
+    }
+    </script>
     <script>
       if ("scrollRestoration" in history) history.scrollRestoration = "manual";
       window.scrollTo(0, 0);
@@ -11,6 +19,8 @@
     <link rel="stylesheet" href="./styles.css?v=20260513-2055" />
   </head>
   <body>
+    <div id="particle-container"></div>
+    <script type="module" src="./particle-effect.js"></script>
     <div class="cursor-glow" aria-hidden="true"></div>
     <canvas id="signalCanvas" aria-hidden="true"></canvas>
 
